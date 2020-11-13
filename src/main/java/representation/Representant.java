@@ -1,5 +1,7 @@
 package representation;
 
+import java.util.ArrayList;
+
 public class Representant {
 
 	private final int numero;
@@ -7,11 +9,20 @@ public class Representant {
 	private final String prenom;
 	private String adresse;
 	private float salaireFixe;
+        protected ZoneGeographique secteur;
+        private ArrayList <Float> CAmensuel;
 
 	public Representant(int numero, String nom, String prenom, ZoneGeographique secteur) {
 		this.numero = numero;
 		this.nom = nom;
 		this.prenom = prenom;
+                this.secteur = secteur;
+                
+        // initialisation a zero de la liste des CA associes a leur mois        
+            CAmensuel = new ArrayList<Float>(); 
+            for(int mois = 0; mois<11; mois++){
+                CAmensuel.add(0f);
+            }
 	}
 
 	public int getNumero() {
@@ -43,13 +54,11 @@ public class Representant {
 	}
 
 	public ZoneGeographique getSecteur() {
-		// TODO: Implémenter cette méthode
-		throw new UnsupportedOperationException("Pas encore implémenté");
+            return secteur;
 	}
 
 	public void setSecteur(ZoneGeographique secteur) {
-		// TODO: Implémenter cette méthode
-		throw new UnsupportedOperationException("Pas encore implémenté");
+            this.secteur = secteur;
 	}
 
 	/**
@@ -65,8 +74,7 @@ public class Representant {
 		if (montant < 0) {
 			throw new IllegalArgumentException("Le montant doit être positif ou null");
 		}
-		// TODO: Implémenter cette méthode
-		throw new UnsupportedOperationException("Pas encore implémenté");
+		this.CAmensuel.add(mois, montant);           
 	}
 
 	/**
@@ -76,8 +84,15 @@ public class Representant {
 	 * @return le salaire pour ce mois, tenant compte du salaire fixe, de l'indemnité repas, et du pourcentage sur CA
 	 */
 	public float salaireMensuel(int mois, float pourcentage) {
-		// TODO: Implémenter cette méthode
-		throw new UnsupportedOperationException("Pas encore implémenté");
+            if (pourcentage < 0){
+                throw new IllegalArgumentException("Le pourcentage doit etre positif");
+            }
+            if (mois < 0|| mois > 11){
+                throw new IllegalArgumentException("Le mois doit etre compris entre 0 et 11");
+            }
+                float salaire;
+                salaire = this.salaireFixe + this.secteur.getIndemniteRepas() + this.CAmensuel.get(mois)*(pourcentage) ;
+                return salaire;
 	}
 
 	@Override
