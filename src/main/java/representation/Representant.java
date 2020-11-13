@@ -84,6 +84,7 @@ public class Representant {
 	 * @return le salaire pour ce mois, tenant compte du salaire fixe, de l'indemnité repas, et du pourcentage sur CA
 	 */
 	public float salaireMensuel(int mois, float pourcentage) {
+            // on verifie les parametres
             if (pourcentage < 0){
                 throw new IllegalArgumentException("Le pourcentage doit etre positif");
             }

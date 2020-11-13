@@ -83,9 +83,13 @@ public class TestRepresentant {
     @Test
     public void pourcentageNegatifImpossible() {
         try {
+            // on enregistre un CA negatif que doit-il se passer?
+            // on doit recevoir une exception
             r.salaireMensuel(2, -5f);
-            fail("Un pourcentage negatif doit generer une exception");
+            // Si on arrive ici, c'est une erreur, le test doit échouer
+            fail("Un pourcentage negatif doit generer une exception");// Forcer l'échec du test
         } catch (IllegalArgumentException e) {
+            // Si on arrive ici, c'est normal, c'est le comportement attendu
         }
     }
     
